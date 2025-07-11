@@ -12,7 +12,7 @@ st.markdown("Upload your resume and get matched with the most relevant jobs base
 # ---------------------- Load Job Data ----------------------
 @st.cache_data
 def load_jobs():
-    df = pd.read_csv("Data/merged_jobs_light.csv")  # <-- make sure this path is correct
+    df = pd.read_csv("Data\merged_jobs_light.csv")  # <-- make sure this path is correct
     df = df.dropna(subset=["job_text"])  # job_text is needed for matching
     df.reset_index(drop=True, inplace=True)
     return df
