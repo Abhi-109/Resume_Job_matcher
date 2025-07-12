@@ -1,0 +1,2 @@
+*.csv filter=lfs diff=lfs merge=lfs -text
+Data/job_descriptions.csv filter=lfs diff=lfs merge=lfs -text
