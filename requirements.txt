@@ -4,4 +4,5 @@ scikit-learn
 PyMuPDF
 python-docx
 fpdf
-sentence-transformers=2.2.2
+sentence-transformers==2.2.2
+python==3.8
