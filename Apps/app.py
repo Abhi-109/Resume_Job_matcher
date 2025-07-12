@@ -29,7 +29,7 @@ def load_model():
 
 @st.cache_data
 def load_jobs():
-    df = pd.read_csv("Data\merged_jobs_light.csv")
+    df = pd.read_csv("Data/merged_jobs_light.csv")
     return df.dropna(subset=["job_text"]).reset_index(drop=True)
 
 model = load_model()
