@@ -5,3 +5,4 @@ PyMuPDF
 python-docx
 fpdf
 sentence-transformers==2.2.2
+sentencepiece==0.1.96 
