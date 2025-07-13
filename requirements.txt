@@ -2,6 +2,7 @@ streamlit
 pandas
 scikit-learn
 PyMuPDF
+matplotlib
 python-docx
 fpdf
-sentence-transformers 
+sentence-transformers

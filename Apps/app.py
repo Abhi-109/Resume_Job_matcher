@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from sentence_transformers import SentenceTransformer, util
 from utils.extract_resume import extract_text
+import matplotlib.pyplot as plt
 import io
 
 # ---------------------- Setup ----------------------
@@ -83,5 +84,16 @@ if uploaded_file:
                         <div class="score">🧐 Match Score: {match_score}%</div>
                     </div>
                 """, unsafe_allow_html=True)
+            
+            
+            st.subheader("📊 Match Score Comparison")
+            
+            fig, ax = plt.subplots()
+            job_titles = top_jobs['Job Title'].values
+            ax.barh(job_titles[::-1], top_scores[::-1] * 100, color='#4CAF50')
+            ax.set_xlabel("Match Score (%)")
+            ax.set_title("Top 5 Job Matches")
+            
+            st.pyplot(fig)
 else:
     st.info("Please upload a resume to get started.")
