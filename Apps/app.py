@@ -45,7 +45,6 @@ st.markdown("Upload your resume (PDF/DOCX) to find the best matching jobs using 
 with st.sidebar:
     st.header("Upload")
     uploaded_file = st.file_uploader("📄 Choose a file", type=["pdf", "docx"])
-    selected_location = st.selectbox("📍 Filter by Location", options=["All"] + sorted(job_df['location'].unique()))
     selected_title = st.selectbox("💼 Filter by Job Title", options=["All"] + sorted(job_df['Job Title'].unique()))
     if uploaded_file:
         st.markdown(f'<div class="uploaded-file">📄 {uploaded_file.name}</div>', unsafe_allow_html=True)
@@ -55,8 +54,6 @@ with st.sidebar:
 
 # Apply filters
 filtered_jobs = job_df.copy()
-if selected_location != "All":
-    filtered_jobs = filtered_jobs[filtered_jobs['location'] == selected_location]
 if selected_title != "All":
     filtered_jobs = filtered_jobs[filtered_jobs['Job Title'] == selected_title]
 
@@ -80,28 +77,11 @@ if uploaded_file:
                 job = top_jobs.iloc[i]
                 match_score = round(score * 100, 2)
 
-                # Matched skill highlighting
-                resume_keywords = set(resume_text.lower().split())
-                job_keywords = set(job['skills'].lower().split()) if 'skills' in job and pd.notna(job['skills']) else set()
-                matched_skills = resume_keywords.intersection(job_keywords)
-
                 st.markdown(f"""
                     <div class="job-card">
                         <div class="job-title">💼 {job['Job Title']}</div>
                         <div class="score">🧐 Match Score: {match_score}%</div>
-                        {'<div class="job-detail">Matched Skills: ' + ', '.join(f"<code>{s}</code>" for s in matched_skills) + '</div>' if matched_skills else ''}
                     </div>
                 """, unsafe_allow_html=True)
-
-                st.progress(int(match_score))
-
-            # Allow download of matched jobs
-            download_df = top_jobs.copy()
-            download_df["Score"] = top_scores
-            csv = download_df.to_csv(index=False)
-            st.download_button("\ud83d\udcc5 Download Matched Jobs", data=csv, file_name="matched_jobs.csv", mime='text/csv')
-
-        else:
-            st.warning("Could not extract text from the resume.")
 else:
     st.info("Please upload a resume to get started.")
