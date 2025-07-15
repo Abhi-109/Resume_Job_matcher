@@ -95,5 +95,13 @@ if uploaded_file:
             ax.set_title("Top 5 Job Matches")
             
             st.pyplot(fig)
+
+            fig, ax = plt.subplots()
+            job_titles = top_jobs['Job Title'].values
+            ax.pie(top_scores[::-1] * 100,labels= job_titles[::-1])
+            ax.set_xlabel("Match Score (%)")
+            ax.set_title("Top 5 Job Matches")
+            
+            st.pyplot(fig)
 else:
     st.info("Please upload a resume to get started.")
