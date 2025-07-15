@@ -97,10 +97,24 @@ if uploaded_file:
             st.pyplot(fig)
 
             fig, ax = plt.subplots()
-            job_titles = top_jobs['Job Title'].values
-            ax.pie(top_scores[::-1] * 100, labels=job_titles[::-1], autopct='%1.1f%%', startangle=140, shadow=True)
+            job_titles = top_jobs['Job Title'].values[::-1]
+            scores = top_scores[::-1] * 100
+            max_index = np.argmax(scores)
+            explode = [0.1 if i == max_index else 0 for i in range(len(scores))]
+
+            # Plot pie chart
+            ax.pie(
+                scores,
+                labels=job_titles,
+                autopct='%1.1f%%',
+                startangle=140,
+                explode=explode,
+                shadow=True
+            )
             ax.axis('equal') 
             plt.title("Top 5 Job Match Scores")
+
             st.pyplot(fig)
+
 else:
     st.info("Please upload a resume to get started.")
