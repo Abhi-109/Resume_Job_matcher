@@ -98,10 +98,9 @@ if uploaded_file:
 
             fig, ax = plt.subplots()
             job_titles = top_jobs['Job Title'].values
-            ax.pie(top_scores[::-1] * 100,labels= job_titles[::-1])
-            ax.set_xlabel("Match Score (%)")
-            ax.set_title("Top 5 Job Matches")
-            
+            ax.pie(top_scores[::-1] * 100, labels=job_titles[::-1], autopct='%1.1f%%', startangle=140, shadow=True)
+            ax.axis('equal') 
+            plt.title("Top 5 Job Match Scores")
             st.pyplot(fig)
 else:
     st.info("Please upload a resume to get started.")
